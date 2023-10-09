@@ -1,4 +1,4 @@
-name: Salesforce Code Analyzer ESLint
+name: Salesforce Code Analyzer PMD
 on:
   push:
     branches:
@@ -28,7 +28,7 @@ jobs:
           SF_USERNAME: ${{ vars.SF_USERNAME }}
         run: sfdx force:auth:jwt:grant --clientid $SF_CLIENT_ID --jwtkeyfile $SF_PRIVATE_KEY --username $SF_USERNAME --setdefaultdevhubusername --setalias my-org
       - name: Run Code Analyzer
-        run: sfdx scanner:run --target "*/**/*.js" --outfile "ScannerResult.csv" --engine "eslint-lwc" --normalize-severity 
+        run: sfdx scanner:run --target "*/**/*.*" --outfile "ScannerResult.csv" --engine "eslint-lwc,pmd" --normalize-severity
         continue-on-error: true
       - name: Commit and push changes
         run: |
