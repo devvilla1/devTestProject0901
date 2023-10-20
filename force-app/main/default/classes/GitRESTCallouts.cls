@@ -23,17 +23,8 @@ public with sharing class GitRESTCallouts {
     public static void candidateDetailsUpload(String cd){
         try {
             CandidateDetails cdwrapper=(CandidateDetails)JSON.deserialize(cd,CandidateDetails.class);
-            system.debug('wrapper :' + cdwrapper);
-            System.debug('projectName-->'+ cdwrapper.projectName);
-            System.debug('orgEmail-->'+cdwrapper.orgEmail);
-            System.debug('orgUsername-->'+cdwrapper.orgUsername);
-            System.debug('orgclientId-->'+cdwrapper.orgclientId);
-            System.debug('projectName-->'+cdwrapper.privateKeyFileId);
-            //Create Project Record
             
-
-            //Create Repo
-            //createGitRepo(cd.projectName,cd.orgUsername,cd.orgclientId);
+           
 
 
         } catch (Exception e) {
@@ -46,7 +37,6 @@ public with sharing class GitRESTCallouts {
           ContentVersion cv = createContentVersion(base64, filename);
 
           if (cv == null ) { return null; }
-          system.debug('Id'+cv.Id);
            return [SELECT  ContentDocumentId from ContentVersion  where  id=:cv.Id LIMIT 1][0].ContentDocumentId;
           
     }   
@@ -72,7 +62,6 @@ public with sharing class GitRESTCallouts {
 
         // Then, convert the Blob to a base64-encoded string using EncodingUtil
         String base64String = EncodingUtil.base64Encode(fileContents);
-        System.debug('--> '+base64String);
 
         return base64String;
     }
@@ -116,17 +105,9 @@ public with sharing class GitRESTCallouts {
         HttpResponse repoResponse = h.send(repoRequest);
 
         if (repoResponse.getStatusCode() == 201) {
-            // Repository created successfully
-            // //Creating Secrets
-            // getRepoPublicKey_Test(repoName,'SF_USERNAME',orgUserName);
-            // getRepoPublicKey_Test(repoName,'SF_CLIENT_ID',orgclientId);
-            // //ContentVersion cv = [SELECT VersionData FROM ContentVersion WHERE ContentDocumentId = '0692w00000Pg3lkAAB'];
-            // //getRepoPublicKey_Test(repoName,'SF_PRIVATE_KEY',cv.VersionData);
+           
              String str = 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tDQpNSUlFdmdJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLZ3dnZ1NrQWdFQUFvSUJBUURnOFlxU2RRM00rUkV3DQovMVF4czk3amhiU3hWVGRlL2ltZnYxSkFCQmxyMklLN1gwbisxaml1MXhBdDdGY0FxenRybGp5cml1MkN3dHlUDQp6UFFoaURxREFXK2ptcEdHMUtqY0tYR0JlREFncHhGaXhTUys4ZHBsRXFWR2hmcE0vaExaZVo5SzZqOGtIV0Y2DQo2bERGc0hhM0prSnBCZUNnR0hieERLaUE4Uk9ES2ZJbS9oajV6WWV6U2ljUnZ5TzRLeWQ2bytmZ045dm1xUVdPDQprakRUQjRzZmFMR0hOVHhBQnVJZUJWSkgwQVlEU1BlM2dpbURMbFgxNHVkMkpaK0dvczRUeHNjeVU5dzQ5a0IwDQpMc1pGSGFNUHBVSy9NdkorMGh6elFQTitYVlNKVUxMVWgzM2VUYmtxN2kvaCtFRXJNenZ1L2NzM0QyczZUS3RqDQpPbDBEbGR2bEFnTUJBQUVDZ2dFQU1kU1FNLzJHUHgvMXRQcjY5Yis0NG9JZUV5S2pqNEdTU3ZjaEMxbGRJRXpvDQpPUVhVNklVZ0xXc3JCR0ZVckt0Q0VJVkpqMTdKV3F3OEhPbk1NeGx3ak5EbW9FRi9kM1RvcTB6cS9obFg0QVBpDQprQlRJSFJ5S210VlVrNWplWit2bzFSQmlQMEJCR0lrQnJTNzNFYlFUdUdMYlYxU2IvQnN2VGhyVndTcW1mZW1FDQpqUWYyNThneDhxMVA5ekdHeXBqUE9OOUhWS3QxSEdoWW5QbnpkQzRhNXROWEJVelcwQWVQRVI0QlRTeG1aeXZqDQpycWdPUENxTmxUQWlUTWVMelhPQVREQURJay9RWHpCcFRNTm14S2tZODJ0KzN5WDc2S3NJMEZNNkk3ZmFweC9PDQpBZUt4SUpUTWVEMThRendkeUlLa3lHNlQyeXpsZjRBeHpCTHp5RjNZU1FLQmdRRHpISmlueU9DTDRORTFXV0JODQozNlNoQmJndUZ5UjZ0MThJcGhkbk42OHl2MUFBcUlQSjk1YU1Mb29tVWFPYTVPcmpMM1dHL0E0NDkyRzJIZ1NmDQprWVVMYitjLzRNVmt1Tjh4N2J0cHlsUi9nTEdDM3pGZFArUklKWVZkbVlsdkNGVVc3QWE4cWlGSHdSUmswcWlzDQpvSzNzU1pub1VCZEhUYXFmYlZqWVczOUUwd0tCZ1FEczNsL2ZCQU1RdUVoTTRCYnRWTWJSd2FicXhZai9XNDdoDQplNUVJZkJ0UW9yWHlmVndpZFp2VjFkdlVldEQ2elZya0l0YkVZVHc1b3ByZ053MDBmTEYyQy9CMzc4Zm5hekxODQppeUR6bUlTTllsNEpyVFVOdEhTeklxZG5wSWx4Tm5UZTY0OE9HUVVJSDl5L0tZcmhja2o3aEM0cmwwbnlaekNTDQpRRFdxcjV0Slp3S0JnUURZOUs0dkhnOTJCVDN1dEVKRGZOQTRleGd3MmFwT2NaSzM3ekYzaGJRdVA1a3YzVE12DQpiR3JIMDBpcWhiVFJxSFVPSmU1bWRrNWkvRElSQ3B6cG9qM3ZSUUJFZTF6dFZDYXJNaE5NaDZuODEyYVMrb2ZkDQpSZ1Y5ZFM2ZHAwV0U5eFNvamg0OUJEOEsvLzRwTSs0ZmtJMW1EeER3eDNqZXd5ci9kK0FQeFNmQXpRS0JnR1FWDQpOYmI2Yi8waGtGTURJRXpaVkVTT3FXTnJZWTViOWt3cHRNYzhBU0thRFh6UElSM2lTWjBaaHBBSjhNRDRBZDZCDQpKZlBHRGZkZ1VFWktuSWEvNVErMnpiMHZrR3lrcTh1VGJMSGdrS2xZbGRsSzJTN1lQN0x0QW9UVlRjbUxNK2g0DQo2WElRZWtMTGk2OHQ4Mk44c1grc2d3R2lJL21MUmtlVlg5ZWw2VndqQW9HQkFNVktCSkJNc1FDMnQ1Z0k1ZTl6DQpRSHBmcGFGNWljMnVGeVdzVmd6THpEOFZOZmtDQUJRU2psSys2UjhXb3ZTMzdDN1Rma2NBMHBoMUgwSW40SjdHDQpuaEgwaTlRVjRqV2xVdVhmZ2FoaDZHVkM5VStJWGlxdDFBZXZ5US8rY1BnMGxzb2JaY3ZQT3lva05BSVFrUHlCDQo2dENoL3hQR2dWMFl1M3hZdlhBbGpJL0UNCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0NCg==';
-            // getRepoPublicKey_Test(repoName,'SF_PRIVATE_KEY',str);
-
-            //Get the Private key file data put in the Private key below
-            //getRepoPublicKey(repoName,'SF_PRIVATE_KEY',-----);
+            
             uploadVariables(repoName,'SF_USERNAME',orgUserName);
             uploadVariables(repoName,'SF_CLIENT_ID',orgclientId);
             uploadVariables(repoName,'SF_PRIVATE_KEY',str);
